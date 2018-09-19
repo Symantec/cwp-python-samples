@@ -5,9 +5,9 @@
 #Script to automate list down AWS connection availabe for the customer and also can create connection for customer.
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 #Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
-#Usage: python cwp_aws_connection_get_create.py <Customer ID> <Domain ID> <Client Id> <Client Secret Key> <clould_platform> <connection_name> <external_id> <cross_account_role_arn> <syncIntervalHours> <syncIntervalMinutes> [ <requires_polling=true>] [<requires_polling=false> <sqs_queue_name> <sqs_queue_url>]
-#E.g.
-#E.g. 
+#Usage: python cwp_aws_connection_create_single_call.py -customerId=<customerId>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret> -platform=AWS -connectionName=<Cloud Connection Name> -externalId=<External Id> -roleArn=<Role ARN> -syncIntervalHours=<Interval in Hours> -syncIntervalMinutes=<Interval in Minutes> -requires_polling=<Periodic Sync?[True|False]> -sqsQueueName=<SQS Queue Name> -sqsQueueUrl=<SQS URL Name>
+#E.g. python cwp_aws_connection_create_single_call.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p -platform=AWS -connectionName=AWSCxxxxxxxxxxx -externalId=nmxxxxxxx9G -roleArn=arn:aws:iam::xxxxxxxxxxxx:role/Role-For-DCS.Cloud-xxxxxxxx -syncIntervalHours=0 -syncIntervalMinutes=15 -requires_polling=False -sqsQueueName=SQSQueue-xxxxxxxxxxxx -sqsQueueUrl=https://sqs.us-east-1.amazonaws.com/xxxxxxxxxxxx/CloudTrail-xxxxxxx-SQS
+#E.g. python cwp_aws_connection_create_single_call.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p -platform=AWS -connectionName=AWSCxxxxxxxxxxx -externalId=nmxxxxxxx9G -roleArn=arn:aws:iam::xxxxxxxxxxxx:role/Role-For-DCS.Cloud-xxxxxxxx -syncIntervalHours=0 -syncIntervalMinutes=15 -requires_polling=True
 ############################################################################################################################################################################################################################################################################################################
 
 import platform
@@ -17,6 +17,7 @@ import string
 import json
 import time
 import sys
+import argparse
 #Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
 clientsecret=''
 clientID=''
@@ -29,8 +30,8 @@ def getconnection():
   mydict = {}
 
   #CWP REST API endpoint URL for auth function
-  urlmain = 'https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1'
-  url = urlmain + '/oauth/tokens'
+  urlmain = serverURL+"/dcs-service/dcscloud/v1"
+  url = urlmain + "/oauth/tokens"
 
   #Add to payload and header your CWP tenant & API keys - client_id, client_secret, x-epmp-customer-id and x-epmp-domain-id
   payload = {'client_id' : clientID, 'client_secret' : clientsecret}
@@ -54,14 +55,14 @@ def getconnection():
   output = {}
   output = response.json()
   #print output
-  print ("\n List of available connections \n")
+  print ("List of available connections")
   print (output)
 
 def createconnection():
   token = {}
   mydict = {}
   #CWP REST API endpoint URL for auth function
-  url = 'https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/oauth/tokens'
+  url = serverURL+"/dcs-service/dcscloud/v1/oauth/tokens"
   #Add to payload and header your CWP tenant & API keys - client_id, client_secret, x-epmp-customer-id and x-epmp-domain-id
   payload = {'client_id' : clientID, 'client_secret' : clientsecret}
   header = {"Content-type": "application/json" ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID}
@@ -71,11 +72,11 @@ def createconnection():
   if (authresult!=200) :
     print ("\nAuthentication Failed. Did you replace the API keys in the code with your CWP API Keys? Check clientsecret, clientID, customerID, and domainID\n")
     exit()
-  print ("\nCreating connection \n")
+  print ("****** Creating connection ******")
   #Extracting auth token
   accesstoken= token['access_token']
   accesstoken = "Bearer " + accesstoken
-  createurl = "https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/cpif/cloud_connections"
+  createurl = serverURL+"/dcs-service/dcscloud/v1/cpif/cloud_connections"
   createheader = {"Authorization": accesstoken ,"Content-type": "application/json" ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID}
   header1 = {"Content-type": "application/json","Authorization": accesstoken ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID}
 
@@ -86,48 +87,69 @@ def createconnection():
   payload['cross_account_role_arn'] = cross_account_role_arn
   payload['pollingIntervalHours'] = syncIntervalHours
   payload['pollingIntervalMinutes'] = syncIntervalMinutes
-  print(requires_polling)
   
-  if requires_polling == 'requires_polling=true':
-        #print("Polling")
+  if requires_polling == 'True':
         payload['requires_polling'] = 'true'
         payload['events_url'] = []
   else:
-        #print("CloudTrail")
         payload['requires_polling'] = 'false'
         payload['events_url'] = [{'name': sqs_queue_name, 'url': sqs_queue_url}]
 
-  print ("Payload: " + str(payload) + "\n\n")
+  print ("Payload: " + str(payload))
 
   createresponse = requests.post(createurl, data=json.dumps(payload), headers=header1)
   mydict = createresponse.json()
+  if createresponse.status_code != 200 :
+     print("Connection configuration failed with response status code  :"+str(createresponse.status_code))
+     print (mydict)
+     exit()
   print (mydict)
-  print ("\nConnection ID : " + mydict[u'id'])
-  print ("\nUse above Connection ID for any future Connection Update API calls.\n")
+  print ("Cloud Connection is successfully configured. "+str(createresponse.status_code))
+  print ("Connection ID :" + mydict["id"])
+  print ("Use above Connection ID for any future Connection Update API calls.")
 
 if __name__=="__main__":
-   if (len(sys.argv) < 11):
-      print ("Insufficient number of arguments passed. Pass all 4 CWP API key parameters from 'Setting Page->API Keys' tab. Usage: python cwp_aws_connection_get_create.py <Customer ID> <Domain ID> <Client Id> <Client Secret Key> and cloud platform, connection name, cross account role ARN and polling options parameters")
-      exit()
-
-   customerID=sys.argv[1]
-   domainID=sys.argv[2]
-   clientID=sys.argv[3]
-   clientsecret=sys.argv[4]
-   clould_platform = sys.argv[5]
-   connection_name = sys.argv[6]
-   external_id = sys.argv[7]
-   cross_account_role_arn = sys.argv[8]
-   syncIntervalHours = sys.argv[9]
-   syncIntervalMinutes = sys.argv[10]
-   requires_polling = sys.argv[11]
-   if (requires_polling == 'requires_polling=false'):
-     if (len(sys.argv) < 13):
-        print ("You have specified CloudTrail Sync option but missed passing SQS Queue Name and SQS Queue URL")
-        exit()
-     sqs_queue_name = sys.argv[12]
-     sqs_queue_url = sys.argv[13]
    
+   parser = argparse.ArgumentParser(description='Get and create the CWP Connections.')
+
+   parser.add_argument('-customerId', required=True, metavar='customerId', help='CWP account customer Id')
+   parser.add_argument('-domainId', required=True, metavar='domainId', help='CWP account domain Id')
+   parser.add_argument('-clientId', required=True, metavar='clientId', help='CWP account client Id')
+   parser.add_argument('-clientSecret', required=True, metavar='clientSecret', help='CWP account client secret')
+   parser.add_argument('-platform', required=True, metavar='platform', help='Cloud Platform [AWS|Azure|GCP]')
+   parser.add_argument('-connectionName', required=True, metavar='connectionName', help='Cloud connection name to be configured')
+   parser.add_argument('-externalId', required=True, metavar='extenalId', help='External Id')
+   parser.add_argument('-roleArn', required=True, metavar='roleArn', help='AWS Role ARN to be configured.')
+   parser.add_argument('-syncIntervalHours', required=True, metavar='syncIntervalHours',type=int, help='Cloud Connection sync interval in hours')
+   parser.add_argument('-syncIntervalMinutes', required=True, metavar='syncIntervalMinutes', type=int,help='Cloud Connection sync interval in Minutes')
+   parser.add_argument('-requires_polling', required=True, metavar='requires_polling',default=False,  help='Requres polling [True|False]')
+   parser.add_argument('-sqsQueueName',  metavar='sqsQueueName', help='AWS SQS Queue Name')
+   parser.add_argument('-sqsQueueUrl' ,  metavar='sqsQueueUrl', help='AWS SQS Queue URL')
+   
+   args = parser.parse_args()
+   if args.requires_polling == 'False':
+      print("CloudTrail Sync is set")
+      if args.requires_polling=='False' and args.sqsQueueName is None and args.sqsQueueUrl is None:
+         parser.error("--prox requires -sqsQueueUrl and -sqsQueueName.")
+      sqs_queue_name = args.sqsQueueName
+      sqs_queue_url  = args.sqsQueueUrl 
+   else:
+      print("Periodic Sync is set")
+   args = parser.parse_args()
+   customerID=args.customerId
+   domainID=args.domainId
+   clientID=args.clientId
+   clientsecret=args.clientSecret
+   clould_platform = args.platform
+   connection_name = args.connectionName
+   external_id = args.externalId
+   cross_account_role_arn = args.roleArn
+   syncIntervalHours = args.syncIntervalHours
+   syncIntervalMinutes = args.syncIntervalMinutes
+   requires_polling = args.requires_polling
+   serverURL="https://scwp.securitycloud.symantec.com"
+   
+   print("Arguments are : \nCWP Server Url:" +serverURL+"\nCustomer Id:"+customerID+"\nDomain Id:"+domainID+"\nClient Id:"+clientID+"\nClient Secret:"+clientsecret+"/n Cloud Platform:"+clould_platform+"\nConnection Name:"+connection_name+"\nExternal Id:"+external_id+"\nCross Account Role ARN:"+cross_account_role_arn+"\nSync Interval in Hour:"+str(syncIntervalHours)+"\nSync Interval in Minutes:"+str(syncIntervalMinutes)+"\n")
    getconnection()
    createconnection()
    
