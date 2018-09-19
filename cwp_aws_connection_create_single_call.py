@@ -111,7 +111,7 @@ def createconnection():
 if __name__=="__main__":
    
    parser = argparse.ArgumentParser(description='Get and create the CWP Connections.')
-
+   parser.add_argument('-serverUrl', metavar='serverUrl',default='https://scwp.securitycloud.symantec.com', help='CWP environment URL. Required if customer onboarded other than US region.(default CWP US region deployment.)')
    parser.add_argument('-customerId', required=True, metavar='customerId', help='CWP account customer Id')
    parser.add_argument('-domainId', required=True, metavar='domainId', help='CWP account domain Id')
    parser.add_argument('-clientId', required=True, metavar='clientId', help='CWP account client Id')
@@ -147,7 +147,7 @@ if __name__=="__main__":
    syncIntervalHours = args.syncIntervalHours
    syncIntervalMinutes = args.syncIntervalMinutes
    requires_polling = args.requires_polling
-   serverURL="https://scwp.securitycloud.symantec.com"
+   serverURL=args.serverUrl
    
    print("Arguments are : \nCWP Server Url:" +serverURL+"\nCustomer Id:"+customerID+"\nDomain Id:"+domainID+"\nClient Id:"+clientID+"\nClient Secret:"+clientsecret+"/n Cloud Platform:"+clould_platform+"\nConnection Name:"+connection_name+"\nExternal Id:"+external_id+"\nCross Account Role ARN:"+cross_account_role_arn+"\nSync Interval in Hour:"+str(syncIntervalHours)+"\nSync Interval in Minutes:"+str(syncIntervalMinutes)+"\n")
    getconnection()
