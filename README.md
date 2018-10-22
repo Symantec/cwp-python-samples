@@ -142,3 +142,13 @@ Example for applying policy group on associated instance.
 Usage: python cwp_aws_connection_create_single_call.py -customerId=<customerId>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret> -policyGroupName=<Name of Policy Group which is updated> 
 
 python applyUpdatedPolicyGroupOnInstances.py -customerId=7hxxxxxxxxxxxxxxxxw  -domainId=pSxxxxxxxxxxxxxxxxtA -clientId=O2ID.7hxxxxxxxxxxxxxxxxw.pSxxxxxxxxxxxxxxxxtA.u12nq9xxxxxxxxxxxxxxxxgm97b0 -clientSecret=11exxxxxxxxxxxxxx0h5d2c -policyGroupName="<Policy_Group_Name>"
+
+-----------------------------------------------------------------------------------------------------------------------
+cwp_schedule_av_scans.py
+
+Script to automate scheduling of AV scans on selected instances.
+
+Example for scheduling AV scans.
+Usage: python cwp_schedule_av_scans.py -customerId=<customerId> -domainId=<domainId> -clientId=<clientId> -clientSecret=<clientSecret> -recurringJobType=<jobType> -scheduleStartTime="<start time>"
+
+python cwp_schedule_av_scans.py -customerId=SEJHHHHHHA8YCxAg -domainId=DqdfTTTTTTTTTTB2w -clientId=O2ID.SEJxecAoTUUUUUUUUUUIITB2w.peu1ojqsrc3k4465779 -clientSecret=t6r4mUUUUUUUUUg2srjhc5q -recurringJobType=DAILY -scheduleStartTime="2019-10-21 00:00:00"
