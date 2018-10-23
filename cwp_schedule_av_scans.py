@@ -262,7 +262,7 @@ if __name__=="__main__":
    parser.add_argument('-scheduleSecond', required=False, metavar='scheduleSecond', help='Schedule second')
    
    parser.add_argument('-platform', required=False, metavar='platform', help='Cloud platform. Can be AWS/AZURE')
-   parser.add_argument('-osType', required=False, metavar='osType', help='OS Type. Can be Windows/Linux')
+   parser.add_argument('-osType', required=False, metavar='osType', help='OS Type. Can be Windows/Unix')
    parser.add_argument('-tagName', required=False, metavar='tagName', help='Tag Name')
    parser.add_argument('-tagValue', required=False, metavar='tagValue', help='Tag Value')
    parser.add_argument('-connectionName', required=False, metavar='connectionName', help='Connection Name')
