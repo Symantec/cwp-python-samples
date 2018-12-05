@@ -4,8 +4,8 @@
 #
 #Script to find out available agent version for all/particular OS on CWP portal under download section
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
-#Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key and os (all/partilucar , e.g all/centos6/rhel7/amzonlinux, etc) as arguments. The keys are available in CWP portal's Settings->API Key tab
-#Usage: python cwp_agent_version.py <Customer ID> <Domain ID> <Client Id> <Client Secret Key> <platform>"
+#Usage: python cwp_agent_version.py -customerId=<Customer ID> -domainId=<Domain ID> -clientId=<Client ID> -clientSecret=<Client Secret Key>" -platform=<All or particular platform like rhel6,rhel7 etc as mentioned in below script>
+#e.g: python cwp_agent_version.py -customerId=7hxxxxxxxxxxxxxxxxw  -domainId=pSxxxxxxxxxxxxxxxxtA -clientId=O2ID.7hxxxxxxxxxxxxxxxxw.pSxxxxxxxxxxxxxxxxtA.u12nq9xxxxxxxxxxxxxxxxgm97b0 -clientSecret=11exxxxxxxxxxxxxx0h5d2c -platform=All
 #######################################################################################################################################################################
 
 import platform
@@ -15,6 +15,7 @@ import string
 import json
 import time
 import sys
+import argparse
 
 #Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab. Customer need to pass which agent version he/she wants to know/get
 clientsecret=''
@@ -24,12 +25,12 @@ domainID=''
 platform=''
 
 #Function to call CWP REST API to get agent version on CWP portal
-def getagentversion(platform):
+def getagentversion(serverUrl,platform):
   token = {}
   mydict = {}
 
   #CWP REST API endpoint URL for auth function
-  url = 'https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/oauth/tokens'
+  url = serverUrl+'/dcs-service/dcscloud/v1/oauth/tokens'
 
   #Add to payload and header your CWP tenant & API keys - client_id, client_secret, x-epmp-customer-id and x-epmp-domain-id
   payload = {'client_id' : clientID, 'client_secret' : clientsecret}
@@ -47,36 +48,44 @@ def getagentversion(platform):
 
 
   if (platform == 'all') :
-    urlagentversion = 'https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/agents/packages/platform/all'
+    urlagentversion = serverUrl + '/dcs-service/dcscloud/v1/agents/packages/platform/all'
   else :
-   urlagentversion =  'https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/agents/packages/latestversion/platform/'
+   urlagentversion =  serverUrl + '/dcs-service/dcscloud/v1/agents/packages/latestversion/platform/'
    urlagentversion = urlagentversion + platform
   headeragentversion= {"Authorization": accesstoken ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID , "Content-Type": "application/json"}
 
   response = requests.get(urlagentversion, headers=headeragentversion)
   if response.status_code != 200:
-        print ("Get agent version  API call failed \n")
+        print ("Get agent version API call failed \n")
         exit()
+  elif response.status_code == 200:
+  		print ("Get agent version call API call is successful \n")
   outputplatformcheck = {}
   outputplatformcheck = response.json()
   print (outputplatformcheck)
 
 if __name__=="__main__":
 
-   if (len(sys.argv) < 6):
-      print ("Insufficient number of arguments passed. Pass all 4 CWP API key parameters from 'Setting Page->API Keys' tab and choice of platform. Usage: python cwp_agent_version.py <Customer ID> <Domain ID> <Client Id> <Client Secret Key> <platform>")
-      exit()
+   parser = argparse.ArgumentParser(description='Get Agent versions for specified platform')
 
-   customerID=sys.argv[1]
-   domainID=sys.argv[2]
-   clientID=sys.argv[3]
-   clientsecret=sys.argv[4]
-   platform=sys.argv[5]
+   parser.add_argument('-serverUrl', metavar='serverUrl',default='https://scwp.securitycloud.symantec.com', help='CWP environment URL. Required if customer onboarded other than US region.(default CWP US region deployment.)')
+   parser.add_argument('-customerId', required=True, metavar='customerId', help='CWP account customer Id')
+   parser.add_argument('-domainId', required=True, metavar='domainId', help='CWP account domain Id')
+   parser.add_argument('-clientId', required=True, metavar='clientId', help='CWP account client Id')
+   parser.add_argument('-clientSecret', required=True, metavar='clientSecret', help='CWP account client secret')
+   parser.add_argument('-platform', required=True, metavar='platform', help='Platform can be anything like All, centos6, centos7, rhel6, rhel7, ubuntu14, ubuntu16, amazonlinux, windows, oel7, oel6 etc')
+   
+   args = parser.parse_args()
+   customerID=args.customerId
+   domainID=args.domainId
+   clientID=args.clientId
+   clientsecret=args.clientSecret
+   serverURL=args.serverUrl
+   platform=args.platform
    platform = platform.lower()
    agentversionlist = ['all', 'centos6', 'centos7', 'rhel6', 'rhel7', 'ubuntu14', 'ubuntu16', 'amazonlinux', 'windows', 'oel7', 'oel6']
    if platform  not in  agentversionlist:
     print ("\n Invalid Platform choice . Choice should be all/rhel6/rhel7/centos6/centos7/oel6/oel7/ubuntu14/ubuntu16/amazonlinux/windows\n")
     exit()
    
-   getagentversion(platform)
-
+   getagentversion(serverURL,platform)
