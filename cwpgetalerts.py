@@ -4,7 +4,8 @@
 #
 #Script to download CWP Alerts using CWP REST API. This script can be used to input data into splunk as script input
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
-#Note: Before you run this script you have to create a ScwpGetAlertsConfig.ini in the script folder. Details Below
+#Usage: python cwpgetalerts.py -customerId=<Customer ID> -domainId=<Domain ID> -clientId=<Client ID> -clientSecret=<Client Secret Key> -alertTypeFilter=<Comma Separated Event Type filter> -alertProfileRule=<Alert profile rule name> -alertFromDays=<Days in integer>
+#e.g python cwpgetalerts.py -customerId=ONo***********NQapIuQ  -domainId=Eq***************Tg -clientId=O2**************************************47uu -clientSecret=1************************5 -alertTypeFilter=IPS,IDS -alertProfileRule="TestPFILRule" -alertFromDays=7
 ##################################################################################################################
 
 import json
@@ -14,6 +15,7 @@ import os
 from datetime import datetime, timedelta
 import time
 import sys
+import argparse
 
 CUSTOMER_ID = 'CUSTOMER_ID'
 DOMAIN_ID = 'DOMAIN_ID'
@@ -71,8 +73,6 @@ GET_ALERTS_FROM_DAYS = 'GetAlertsFromDays'
 SEARCH_FILTER= 'SearchFilter'
 ALERT_PROFILE_RULE='AlertProfileRuleName'
 
-scwpAuthUrl = 'https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/oauth/tokens'
-getScwpAlertsUrl = 'https://scwp.securitycloud.symantec.com/dcs-service/sccs/v1/events/search'
 
 authHeaders = {'Content-type':'application/json'}
 authRequest = {}
@@ -89,7 +89,7 @@ def updateStatusIniFile():
     		config.write(configfile)
 
 #First authenticate with CWP server with your API keys
-def authenticate():
+def authenticate(scwpAuthUrl):
 	for retry in range(RETRY_COUNT):
 		authRequestJson = json.dumps(authRequest)
 		authResponse = requests.post(scwpAuthUrl, data=authRequestJson, headers=authHeaders)
@@ -104,27 +104,39 @@ def authenticate():
 	authHeaders['Authorization'] = 'Bearer ' + accessToken
 
 try:
-    #Prepare headers and body for calling CWP Alert API
-    #Read API keys from config file
-	Config = ConfigParser.SafeConfigParser()
-	Config.read(CONFIG_INI)
-	customerId = Config.get(CONFIG_CREDS_SECTION, CUSTOMER_ID)
-	domainId = Config.get(CONFIG_CREDS_SECTION, DOMAIN_ID)
-	clientId = Config.get(CONFIG_CREDS_SECTION, CLIENT_ID)
-	clientSecret = Config.get(CONFIG_CREDS_SECTION, CLIENT_SECRET)
-	alertTypeFilterConfig = Config.get(CONFIG_ALERTS_SECTION, ALERT_TYPE_FILTER)
-    	alertSearchFilterConfig = Config.get(CONFIG_ALERTS_SECTION, SEARCH_FILTER)
-    	getAlertProfileRuleName = Config.get(CONFIG_ALERTS_SECTION, ALERT_PROFILE_RULE)
-	authHeaders['x-epmp-customer-id'] = customerId
-	authHeaders['x-epmp-domain-id'] = domainId
-	authRequest['client_id'] = clientId
-	authRequest['client_secret'] = clientSecret
+        parser = argparse.ArgumentParser(description='Get alerts list as per alert type filter,search filter and alert profile name')
+        parser.add_argument('-serverUrl', metavar='serverUrl',default='https://scwp.securitycloud.symantec.com', help='CWP environment URL. Required if customer onboarded other than US region.(default CWP US region deployment.)')
+        parser.add_argument('-customerId', required=True, metavar='customerId', help='CWP account customer Id')
+        parser.add_argument('-domainId', required=True, metavar='domainId', help='CWP account domain Id')
+        parser.add_argument('-clientId', required=True, metavar='clientId', help='CWP account client Id')
+        parser.add_argument('-clientSecret', required=True, metavar='clientSecret', help='CWP account client secret')
+        parser.add_argument('-alertTypeFilter', required=True, metavar='alertTypeFilter', help='Alert type filter like IPS,Antimalware etc. For multiple values use comma separated string')
+        parser.add_argument('-alertProfileRule', required=True, metavar='alertProfileRule', help='Alert Profile rule name')
+        parser.add_argument('-alertFromDays', required=True, metavar='alertFromDays', help='Alert from days in integer like 7,30 etc ')
+        args = parser.parse_args()
+        serverURL=args.serverUrl
+        customerID=args.customerId
+        domainID=args.domainId
+        clientID=args.clientId
+        clientsecret=args.clientSecret
+        alerttypefilter=args.alertTypeFilter
+        alertprofilerule=args.alertProfileRule
+        alertsfromdays = args.alertFromDays
 
-	statusIni = ConfigParser.SafeConfigParser()
-	statusIni.read(STATUS_INI)
-	startDate = statusIni.get(STATUS_DATES_SECTION, START_DATE)
-    #print startDate
-	getAlertsFromDays = Config.getint(CONFIG_ALERTS_SECTION, GET_ALERTS_FROM_DAYS)
+        scwpAuthUrl = serverURL + '/dcs-service/dcscloud/v1/oauth/tokens'
+        getScwpAlertsUrl = serverURL + '/dcs-service/sccs/v1/events/search'
+        
+	authHeaders['x-epmp-customer-id'] = customerID
+	authHeaders['x-epmp-domain-id'] = domainID
+	authRequest['client_id'] = clientID
+	authRequest['client_secret'] = clientsecret
+
+	#statusIni = ConfigParser.SafeConfigParser()
+	#statusIni.read(STATUS_INI)
+	#startDate = statusIni.get(STATUS_DATES_SECTION, START_DATE)
+	startDate = ""
+        #print startDate
+	getAlertsFromDays = int(alertsfromdays)
 	if (startDate is None) or (startDate == ""):
 		startDate = (datetime.today() - timedelta(days=getAlertsFromDays)).isoformat()
 	else:
@@ -133,10 +145,10 @@ try:
 		else:
 			startDate = (datetime.strptime(startDate, '%Y-%m-%dT%H:%M:%S.%f') + timedelta(milliseconds=1)).isoformat()
 
-	alertTypes = alertTypeFilterConfig.strip().split(',')
+	alertTypes = alerttypefilter.strip().split(',')
 	alertTypesWithQuotes = ','.join('\"{0}\"'.format(alertType) for alertType in alertTypes)
-	if getAlertProfileRuleName.strip() != '':
-        	alertTypeFilter = '(rule_name ' + getAlertProfileRuleName + ') && (type_id = 16 &&  events.type_class is_not null)'
+	if alertprofilerule.strip() != '':
+        	alertTypeFilter = '(rule_name =\'' + alertprofilerule + '\') && (type_id = 16 &&  events.type_class is_not null)'
         else:
         	alertTypeFilter = '(type_id = 16 &&  events.type_class is_not null)'
     #print '\n' + alertTypeFilter
@@ -154,11 +166,14 @@ try:
 		scwpAlertsResponse = requests.post(getScwpAlertsUrl, data=getScwpAlertsRequestJson, headers=authHeaders)
 
 		if scwpAlertsResponse.status_code == 401:
-			authenticate()
+			authenticate(scwpAuthUrl)
 			scwpAlertsResponse = requests.post(getScwpAlertsUrl, data=getScwpAlertsRequestJson, headers=authHeaders)
 	
 		if scwpAlertsResponse.status_code != requests.codes.ok:
-			scwpAlertsResponse.raise_for_status()
+			print "Get Alerts API is failed"
+                        scwpAlertsResponse.raise_for_status()
+                else:
+                        print "Get Alerts API is successful"
 
 		scwpAlertsJson = scwpAlertsResponse.json()
 		scwpAlerts = scwpAlertsJson 
@@ -168,8 +183,8 @@ try:
 			break 
 
 		for scwpAlert in scwpAlerts:
-			print(json.dumps(scwpAlert))
-			print('\n')
+			#print(json.dumps(scwpAlert))
+			#print('\n')
 			sys.stdout.flush()
 			alertDatetime = scwpAlert['time']
 	

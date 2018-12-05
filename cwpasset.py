@@ -1,38 +1,21 @@
-#!/usr/bin/env python
+#!/usr/bin/env python 
 #
 # Copyright 2017 Symantec Corporation. All rights reserved.
 #
 #Script to get CWP asset (instance) details
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 #Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
-#Usage: python cwpasset.py <Customer ID> <Domain ID> <Client Id> <Client Secret Key> <instanceid>"
 #instanceid is optional. if instance Id is not passed, the script enumerates all instances in AWS. To get instances from Azure chage query filter to (cloud_platform in [\'Azure\'])
-#Sample Usage: python cwpasset.py 'SEJHHHHHHA8YCxAg' 'DqdfTTTTTTTTTTB2w' 'O2ID.SEJxecAoTUUUUUUUUUUIITB2w.peu1ojqsrc3k4p69' 't6r4mUUUUUUUUUg2srjhc5q' i-UUUUUUff50b85
+#Sample Usage: python cwpasset.py -customerId=iCUdmHxxxxxBaXGQ  -domainId=dAxu0xxxxxoFXBboIg -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxwvq1dpkl4 -clientSecret=1umcsxxxxxxxxxxxxxxxxxxxxxw86kdr59r6ps -platform=AWS -instanceId=i-xxxxxxxx
 #####################################################################################################
 
 import os
 import requests
 import json
 import sys
-
-if __name__=="__main__":
-
-  if (len(sys.argv) < 5):
-    print ("Insufficient number of arguments passed. Pass all 4 CWP API key parameters from 'Setting Page->API Keys' tab. Usage: python cwpagentinstall.py <Customer ID> <Domain ID> <Client Id> <Client Secret Key>")
-    exit()
-  #CWP REST API endpoint URL for auth function
-  url = 'https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/oauth/tokens'
-
-
-  targetinstanceid = ""
-  #Save CWP API keys here
-  customerID=sys.argv[1]
-  domainID=sys.argv[2]
-  clientID=sys.argv[3]
-  clientsecret=sys.argv[4]
-  if (len(sys.argv) == 6):
-    targetinstanceid=sys.argv[5]
-
+import argparse
+def getAgentDetails():
+  url = serverURL+'/dcs-service/dcscloud/v1/oauth/tokens'
   #Add to payload and header your CWP tenant & API keys - client_id, client_secret, x-epmp-customer-id and x-epmp-domain-id
   payload = {'client_id' : clientID, 'client_secret' : clientsecret}
   header = {"Content-type": "application/json" ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID} 
@@ -54,11 +37,11 @@ if __name__=="__main__":
   #print ("\nHeaders for Asset API: " + str(headerforapi))
   
   #Get Instances in AWS account, if instance id was passed enumerate instance detail only for that instance if not for all instances
-  getInstanceIdUrl = 'https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/ui/assets?'
-  if (targetinstanceid != "") :
-     getInstanceIdUrl= getInstanceIdUrl + 'where=(instance_id=\'' + targetinstanceid + '\')&(cloud_platform in [\'AWS\'])&include=installed_products'
+  getInstanceIdUrl = serverURL+'/dcs-service/dcscloud/v1/ui/assets?'
+  if (targetinstanceid != "" ) :
+     getInstanceIdUrl= getInstanceIdUrl + 'where=(instance_id=\'' + targetinstanceid + '\')&(cloud_platform in [\''+clould_platform+'\'])&include=installed_products'
   else:
-     getInstanceIdUrl= getInstanceIdUrl + 'where=(cloud_platform in [\'AWS\'])&include=installed_products'
+     getInstanceIdUrl= getInstanceIdUrl + 'where=(cloud_platform in [\''+clould_platform+'\'])&include=installed_products'
   print ("\nGet Asset List API call: " + getInstanceIdUrl)
 
   getInstanceIdResponse = requests.get(getInstanceIdUrl, headers=headerforapi)
@@ -123,3 +106,32 @@ if __name__=="__main__":
                   #print ("Vulnerability ID: "+ str(vulnerabilities[vulnerability].get("vulnerability_id")));
     #print ('\nAsset Info Json:\n' + str(assetresponseJson.get("results")[item]))
     print ("----------------------------------------------------------")
+    
+if __name__=="__main__":
+   parser = argparse.ArgumentParser(description='Get agent details.')
+   
+   parser.add_argument('-serverUrl', metavar='serverUrl',default='https://scwp.securitycloud.symantec.com', help='CWP environment URL. Required if customer onboarded other than US region.(default CWP US region deployment.)')
+   parser.add_argument('-customerId', required=True, metavar='customerId', help='CWP account customer Id')
+   parser.add_argument('-domainId', required=True, metavar='domainId', help='CWP account domain Id')
+   parser.add_argument('-clientId', required=True, metavar='clientId', help='CWP account client Id')
+   parser.add_argument('-clientSecret', required=True, metavar='clientSecret', help='CWP account client secret')
+   parser.add_argument('-platform', required=True, metavar='platform', help='Cloud Platform [AWS|Azure|GCP]')
+   parser.add_argument('-instanceId', metavar='instanceId', help='Instance id for which get agent details')
+   
+   args = parser.parse_args()
+   
+   customerID=args.customerId
+   domainID=args.domainId
+   clientID=args.clientId
+   clientsecret=args.clientSecret
+   clould_platform = args.platform
+   targetinstanceid = args.instanceId
+   serverURL = args.serverUrl
+   print("Arguments are : \nCWP Server Url:" +serverURL+"\nCustomer Id:"+customerID+"\nDomain Id:"+domainID+"\nClient Id:"+clientID+"\nClient Secret:"+clientsecret)
+   if args.instanceId is None:
+     print ("Instance Id is not provided.")
+     targetinstanceid = ""
+   else:
+     print("Instance Id is "+args.instanceId)
+   getAgentDetails()
+

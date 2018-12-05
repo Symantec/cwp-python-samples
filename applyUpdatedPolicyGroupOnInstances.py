@@ -3,9 +3,9 @@
 # Copyright 2018 Symantec Corporation. All rights reserved.
 #
 #Script to automate apply updated policy group on associated instances.
-#Usage: python applyUpdatedPolicyGroupOnInstances.py -customerId=<customerId>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret> -policyGroupName="<Policy_Group_Name>"
-#E.g. python applyUpdatedPolicyGroupOnInstances.py -customerId=7hxxxxxxxxxxxxxxxxw  -domainId=pSxxxxxxxxxxxxxxxxtA -clientId=O2ID.7hxxxxxxxxxxxxxxxxw.pSxxxxxxxxxxxxxxxxtA.u12nq9xxxxxxxxxxxxxxxxgm97b0 -clientSecret=11exxxxxxxxxxxxxx0h5d2c -policyGroupName="Web App PolicyGroup"
-############################################################################################################################################################################################################################################################################################################
+#Usage: python cwp_aws_connection_create_single_call.py -customerId=<customerId>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret> -policyGroupName=<Name of {olicy Group which is updated> 
+#E.g. python applyUpdatedPolicyGroupOnInstances.py -customerId=7hxxxxxxxxxxxxxxxxw  -domainId=pSxxxxxxxxxxxxxxxxtA -clientId=O2ID.7hxxxxxxxxxxxxxxxxw.pSxxxxxxxxxxxxxxxxtA.u12nq9xxxxxxxxxxxxxxxxgm97b0 -clientSecret=11exxxxxxxxxxxxxx0h5d2c -policyGroupName="<Policy_Group_Name>"
+##########################################################################################################################################################################################################################################################################################
 
 import platform
 import os
@@ -40,6 +40,7 @@ def applyPolicyGroup():
   token=response.json()
   if (authresult!=200) :
     print ("\nAuthentication Failed. Did you replace the API keys in the code with your CWP API Keys? Check clientsecret, clientID, customerID, and domainID\n")
+    print ("\nAPI Return code is: "+str(authresult))
     exit()
   accesstoken= token['access_token']
   accesstoken = "Bearer " + accesstoken
@@ -57,7 +58,7 @@ def applyPolicyGroup():
       pgExist = True
       policyGroupName = pg['name']
       policyGroupId = pg['id']
-      print("Policy Group Id for ["+policyGroupName+"] is ["+policyGroupId+"]")
+      print("Policy Group Id for ["+policyGroupName+"] is :"+policyGroupId)
 
   if pgExist==False:
     print ("***** Policy Group with Name "+policyGroupName+" is not present in CWP account. \nPlease verify if correct name provided.")
@@ -67,13 +68,17 @@ def applyPolicyGroup():
   if response.status_code != 200:
         print ("Get assets associated with policy group API call failed with response status code  :"+str(response.status_code)+"\n")
         exit()
+  print("API to get assets associated with Policy Group Successful.")
   assetList = response.json()
   print("Below is list of instances on which updated policy group ["+policyGroupName+"] will be applied.\nInstance Id's are")
   for asset in assetList:
     print("["+asset['instance_id']+"]")
     cwpassets.append(str(asset['instance_id']))
   print("Policy Group ["+policyGroupName+"] has ["+str(len(cwpassets))+"] instances associated.")
-  choice = raw_input("Do you want to continue? (Y/N):")
+  if forceApply.lower() != 'yes':
+    choice = raw_input("Do you want to continue? (Y/N):")
+  else:
+    choice = 'y'
   if choice.lower() == 'y' or choice.lower()=='yes':
     print("Applying policy group on instances.")
   else:
@@ -94,6 +99,7 @@ if __name__=="__main__":
    parser = argparse.ArgumentParser(description='Get and create the CWP Connections.')
 
    parser.add_argument('-serverUrl', metavar='serverUrl',default='https://scwp.securitycloud.symantec.com', help='CWP environment URL. Required if customer onboarded other than US region.(default CWP US region deployment.)')
+   parser.add_argument('-forceApply', metavar='forceApply',default='No', help='Apply Policy Group directly without confirming (Default is No.) Possible values Yes/No')
    parser.add_argument('-customerId', required=True, metavar='customerId', help='CWP account customer Id')
    parser.add_argument('-domainId', required=True, metavar='domainId', help='CWP account domain Id')
    parser.add_argument('-clientId', required=True, metavar='clientId', help='CWP account client Id')
@@ -107,8 +113,9 @@ if __name__=="__main__":
    clientsecret=args.clientSecret
    policyGroupName = args.policyGroupName
    serverURL=args.serverUrl
+   forceApply=args.forceApply
    
-   print("Arguments are : \nCWP Server Url:" +serverURL+"\nCustomer Id:"+customerID+"\nDomain Id:"+domainID+"\nClient Id:"+clientID+"\nClient Secret:"+clientsecret+"\nPolicy Group Name :"+policyGroupName+"\n")
+   print("Arguments are : \nCWP Server Url:" +serverURL+"\nCustomer Id:"+customerID+"\nDomain Id:"+domainID+"\nClient Id:"+clientID+"\nClient Secret:"+clientsecret+"\nPolicy Group Name :"+policyGroupName+"\nForce apply option is :"+forceApply)
    applyPolicyGroup()
    
    
