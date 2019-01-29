@@ -111,7 +111,7 @@ def createconnection():
 
 if __name__=="__main__":
    
-   parser = argparse.ArgumentParser(description='Get and create the CWP Connections.')
+   parser = argparse.ArgumentParser(description='Create a AWS Connection in CWP.')
 
    parser.add_argument('-serverUrl', metavar='serverUrl',default='https://scwp.securitycloud.symantec.com', help='CWP environment URL. Required if customer onboarded other than US region.(default CWP US region deployment.)')
    parser.add_argument('-customerId', required=True, metavar='customerId', help='CWP account customer Id')
