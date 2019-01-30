@@ -43,7 +43,7 @@ def createconnection():
   #Extracting auth token
   accesstoken= token['access_token']
   accesstoken = "Bearer " + accesstoken
-  print("Access Token is : "+str(accesstoken))
+  #print("Access Token is : "+str(accesstoken))
   createurl = serverURL+"/dcs-service/dcscloud/v1/cpif/cloud_connections"
   createheader = {"Authorization": accesstoken ,"Content-type": "application/json" ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID}
   header1 = {"Content-type": "application/json","Authorization": accesstoken ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID}
