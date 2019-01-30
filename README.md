@@ -152,3 +152,14 @@ Example for scheduling AV scans.
 Usage: python cwp_schedule_av_scans.py -customerId=<customerId> -domainId=<domainId> -clientId=<clientId> -clientSecret=<clientSecret> -recurringJobType=<jobType> -scheduleStartTime="<start time>"
 
 python cwp_schedule_av_scans.py -customerId=SEJHHHHHHA8YCxAg -domainId=DqdfTTTTTTTTTTB2w -clientId=O2ID.SEJxecAoTUUUUUUUUUUIITB2w.peu1ojqsrc3k4465779 -clientSecret=t6r4mUUUUUUUUUg2srjhc5q -recurringJobType=DAILY -scheduleStartTime="2019-10-21 00:00:00"
+
+--------------------------------------------------------------------------------------------------------------------
+cwp_aws_create_blank_connection.py
+
+Script to automate creation of a blank AWS connection in CWP using Connection creation API with a customer provided external ID.
+The API returns CWP connection ID that can be used to update the connection with Role ARN, Polling/CloudTrail settings
+Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
+Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
+Usage: python cwp_aws_connection_create_single_call.py -customerId=<customerId>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret> -platform=AWS -connectionName=<Cloud Connection Name> -externalId=<External Id>
+E.g. python cwp_aws_connection_create_single_call.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p -platform=AWS -connectionName=AWSCxxxxxxxxxxx -externalId=nmxxxxxxx9G
+E.g. python cwp_aws_connection_create_single_call.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p -platform=AWS -connectionName=AWSCxxxxxxxxxxx -externalId=nmxxxxxxx9G
