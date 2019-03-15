@@ -61,4 +61,4 @@ if __name__=="__main__":
     print ("\nCWP AV Exclusion API Failed")
     exit()
   else:
-    print ("\nCWP AV Exclusion API successfull")
+    print ("\nCWP AV Exclusion API successfull") 
