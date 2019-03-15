@@ -2,7 +2,7 @@
 # 
 # Copyright 2018 Symantec Corporation. All rights reserved.
 #
-#Script to automate list down AWS connection availabe for the customer and also can create connection for customer.
+#Script to automate list down AWS connections and also can create AWS connection in CWP.
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 #Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
 #Usage: python cwp_aws_connection_get_create.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p -platform=AWS"
