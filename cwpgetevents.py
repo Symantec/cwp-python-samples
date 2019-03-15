@@ -3,7 +3,7 @@
 # Copyright 2017 Symantec Corporation. All rights reserved.
 #
 #Script to download CWP Events using CWP REST API. This script can be used to input data into splunk as script input 
-#Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
+#Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection 
 #Note: Before you run this script you have to create a ScwpGetEventsConfig.ini in the script folder. Details Below
 ##################################################################################################################
 
