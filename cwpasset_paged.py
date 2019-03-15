@@ -162,5 +162,5 @@ if __name__=="__main__":
    
    print("Arguments are : \nCWP Server Url :" +serverURL+"\nCustomer Id:"+customerID+"\nDomain Id:"+domainID+"\nClient Id:"
            +clientID+"\nClient Secret:"+clientsecret+"/n Instance Id:"+targetinstanceid+" Cloud Platform="+clould_platform+"\n")
-   fetchassetDetails()
+   fetchassetDetails() 
    
