@@ -163,3 +163,14 @@ Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as 
 Usage: python cwp_aws_connection_create_single_call.py -customerId=<customerId>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret> -platform=AWS -connectionName=<Cloud Connection Name> -externalId=<External Id>
 E.g. python cwp_aws_connection_create_single_call.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p -platform=AWS -connectionName=AWSCxxxxxxxxxxx -externalId=nmxxxxxxx9G
 E.g. python cwp_aws_connection_create_single_call.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p -platform=AWS -connectionName=AWSCxxxxxxxxxxx -externalId=nmxxxxxxx9G
+
+
+cwpasset_agent_status.py
+Script to get CWP asset agent installation status.
+Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_fetch_assets_service
+Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
+Usage: python cwpasset_agent_status.py <Customer ID> <Domain ID> <Client Id> <Client Secret Key> <instanceid>"
+E.g.: python cwpasset_agent_status.py SE*****Ag Dq******w O2ID.SE*******vmuo qa*******d8 i-06***********9e
+
+
+cwp_schedule_av_scans.py
