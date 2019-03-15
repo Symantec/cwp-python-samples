@@ -2,7 +2,7 @@
 #
 # Copyright 2017 Symantec Corporation. All rights reserved.
 #
-#Sample Python Script to enumerate CWP assets and run on demand AC scan on these assets. 
+#Sample Python Script to enumerate CWP assets and schedule AV scan on these assets. 
 #The assets get call can be filtered by Platform, OS Type, Tag name/value, and also by connection name
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_fetch_assets_service and https://apidocs.symantec.com/home/scwp#_anti_malware_scan_service
 #The API keys are available in CWP portal's Settings->API Key tab
