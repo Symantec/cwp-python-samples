@@ -90,5 +90,5 @@ if __name__=="__main__":
    serverURL=args.serverUrl
    
    print("Arguments are : \nCWP Server Url:" +serverURL+"\nCustomer Id:"+customerID+"\nDomain Id:"+domainID+"\nClient Id:"+clientID+"\nClient Secret:"+clientsecret+"/n Cloud Platform:"+clould_platform+"\nConnection Name:"+connection_name+"\nExternal Id:"+external_id+"\n")
-   createconnection()
+   createconnection() 
    
