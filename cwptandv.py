@@ -128,4 +128,4 @@ if __name__=="__main__":
 				print("Affected Applications :" + str(applications))
 			if(tnvresponseJson.get("vulnerabilities")[item].get("threats") is not None):
 				threats = tnvresponseJson.get("vulnerabilities")[item].get("threats")
-				print("Associated Threats :" + str(threats))
+				print("Associated Threats :" + str(threats)) 
