@@ -35,7 +35,7 @@ def applyPolicyGroup():
   #Add to payload and header your CWP tenant & API keys - client_id, client_secret, x-epmp-customer-id and x-epmp-domain-id
   payload = {'client_id' : clientID, 'client_secret' : clientsecret}
   header = {"Content-type": "application/json" ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID}
-  response = requests.post(serverURL+getTokenUrl, data=json.dumps(payload), headers=header) 
+  response = requests.post(serverURL+getTokenUrl, data=json.dumps(payload), headers=header)  
   authresult=response.status_code
   token=response.json()
   if (authresult!=200) :
