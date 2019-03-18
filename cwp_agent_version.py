@@ -88,4 +88,4 @@ if __name__=="__main__":
     print ("\n Invalid Platform choice . Choice should be all/rhel6/rhel7/centos6/centos7/oel6/oel7/ubuntu14/ubuntu16/amazonlinux/windows\n")
     exit()
    
-   getagentversion(serverURL,platform)
+   getagentversion(serverURL,platform) 

@@ -2,7 +2,7 @@
 #
 # Copyright 2017 Symantec Corporation. All rights reserved.
 #
-#Script to automate enforcement of CWP policy
+#Script to automate enforcement of CWP policy group to an instance
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 #####################################################################################################
 

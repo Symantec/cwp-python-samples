@@ -2,7 +2,7 @@
 #
 # Copyright 2017 Symantec Corporation. All rights reserved.
 #
-#Script to get CWP asset (instance) details
+#Script to get CWP asset (instance) details 
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 #Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
 #instanceid is optional. if instance Id is not passed, the script enumerates all instances in AWS. To get instances from Azure chage query filter to (cloud_platform in [\'Azure\'])

@@ -193,7 +193,7 @@ if __name__=="__main__":
 				avscanresult=avscanresponse.status_code
 				print("\nRun AV Scan API return code: " + str(avscanresult))
 				if (avscanresult!=200) :
-					print ("\nCWP AV Scan API Failed on instance" +  str(instanceid))
+					print ("\nCWP AV Scan API Failed on instance" +  str(instanceid)) 
 				else:
 					print ("\nCWP on demand AV scan successfully started on Instance: " +  str(instanceid))
 			print("==============================================================================")

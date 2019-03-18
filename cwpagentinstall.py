@@ -2,7 +2,7 @@
 #
 # Copyright 2018 Symantec Corporation. All rights reserved.
 #
-#Script to automate deployment of Symantec Cloud Workload Protection Agent on a Virtual Machine. This script also applies a CWP Policy Group.
+#Script to automate deployment of Symantec Cloud Workload Protection Agent on a Virtual Machine.
 #This script can be used in AWS user data field during instance launch
 #Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
 #Script no longer reboots the server. This script can be used in AWS & Azure launch configs.

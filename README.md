@@ -1,5 +1,9 @@
 # CWP Python Samples
 
+[![Symantec](https://img.shields.io/badge/tag-symantec-yellow.svg)](https://www.symantec.com/)
+[![CWP](https://img.shields.io/badge/tag-dlp-yellow.svg)](https://www.symantec.com/products/cloud-workload-protection)
+[![Python](https://img.shields.io/badge/language-sql-blue.svg)](https://www.python.org/)
+
 Python code samples for demostrating usage of [Symantec Cloud Workload Protection](https://www.symantec.com/products/cloud-workload-protection) RESTful API functions
 
 Refer to Symantec CWP API documentation at: https://apidocs.symantec.com/home/scwp#_events_service
@@ -203,6 +207,7 @@ Usage:
 Script to automate creation of a blank AWS connection in CWP using Connection creation API with a customer provided external ID.
 The API returns CWP connection ID that can be used to update the connection with Role ARN, Polling/CloudTrail settings
 Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
+
 Customer has to pass `Customer ID`, `Domain ID`, `Client ID` and `Client Secret Key` as arguments.
 The keys are available in CWP portal's Settings -> API Key tab
 
@@ -214,3 +219,33 @@ E.g.
 
 E.g.
 > `python cwp_aws_connection_create_single_call.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p -platform=AWS -connectionName=AWSCxxxxxxxxxxx -externalId=nmxxxxxxx9G`
+
+--------------------------------------------------------------------------------------------------------------------
+
+[cwpasset_agent_status.py](cwpasset_agent_status.py)
+
+Script to get CWP asset agent installation status.
+Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_fetch_assets_service
+
+Customer has to pass `Customer ID`, `Domain ID`, `Client ID` and `Client Secret Key` as arguments.
+The keys are available in CWP portal's Settings->API Key tab
+
+Usage:
+> `python cwpasset_agent_status.py <Customer ID> <Domain ID> <Client Id> <Client Secret Key> <instanceid>"`
+
+E.g.
+> `python cwpasset_agent_status.py SE*****Ag Dq******w O2ID.SE*******vmuo qa*******d8 i-06***********9e`
+
+--------------------------------------------------------------------------------------------------------------------
+
+[cwp_schedule_av_scans.py](cwp_schedule_av_scans.py)
+
+*Description*
+
+Usage:
+> `python ...`
+
+E.g.
+> `python ...`
+
+--------------------------------------------------------------------------------------------------------------------

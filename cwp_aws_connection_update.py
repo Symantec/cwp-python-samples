@@ -2,7 +2,7 @@
 # 
 # Copyright 2018 Symantec Corporation. All rights reserved.
 #
-#Script to automate updation of created connection with arn
+#Script to update a previously created blank AWS connection with role arn and polling/sync parameters
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 #Customer has to pass Customer ID, Domain ID, Client ID and Client Secret Key as arguments. The keys are available in CWP portal's Settings->API Key tab
 # Role ARN, SQS URL and SQS queue name and polling interval.

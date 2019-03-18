@@ -2,7 +2,7 @@
 #
 # Copyright 2018 Symantec Corporation. All rights reserved.
 #
-#Script to automate AV scan execution on an AWS/Azure Instance
+#Script to automate AV scan execution on specified AWS/Azure Instances
 #Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 #Usage:  python cwprunavscan.py -customerId=<customerId>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret> -instanceId=<instanceid on which you want to run AV scan> or -filename=<filename in which you have stored instance id, it should be present on current location where you are running this script>
 #E.g.  python cwprunavscan.py -customerId=7hxxxxxxxxxxxxxxxxw  -domainId=pSxxxxxxxxxxxxxxxxtA -clientId=O2ID.7hxxxxxxxxxxxxxxxxw.pSxxxxxxxxxxxxxxxxtA.u12nq9xxxxxxxxxxxxxxxxgm97b0 -clientSecret=11exxxxxxxxxxxxxx0h5d2c -instanceId=i-0e1268226b99bf24c 

@@ -138,7 +138,7 @@ try:
         #print startDate
 	getAlertsFromDays = int(alertsfromdays)
 	if (startDate is None) or (startDate == ""):
-		startDate = (datetime.today() - timedelta(days=getAlertsFromDays)).isoformat()
+		startDate = (datetime.today() - timedelta(days=getAlertsFromDays)).isoformat() 
 	else:
 		if startDate.endswith('Z'):
 			startDate = (datetime.strptime(startDate, '%Y-%m-%dT%H:%M:%S.%fZ') + timedelta(milliseconds=1)).isoformat()
