@@ -69,7 +69,7 @@ def addorupdatetags():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Add and Delete Tags to Instances.')
 
-    parser.add_argument('-serverUrl', metavar='serverUrl', default='https://dcs-stage.symprotectcloud.com',
+    parser.add_argument('-serverUrl', metavar='serverUrl', default='https://scwp.securitycloud.symantec.com',
                         help='CWP environment URL. Required if customer onboarded other than US region.(default CWP US region deployment.)')
     parser.add_argument('-customerId', required=True, metavar='customerId', help='CWP account customer Id')
     parser.add_argument('-domainId', required=True, metavar='domainId', help='CWP account domain Id')
