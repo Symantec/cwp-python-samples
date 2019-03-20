@@ -35,6 +35,7 @@ def applyPolicyGroup():
   #Add to payload and header your CWP tenant & API keys - client_id, client_secret, x-epmp-customer-id and x-epmp-domain-id
   payload = {'client_id' : clientID, 'client_secret' : clientsecret}
   header = {"Content-type": "application/json" ,'x-epmp-customer-id' : customerID , 'x-epmp-domain-id' : domainID}
+  print ("Calling CWP Authentication API...")
   response = requests.post(serverURL+getTokenUrl, data=json.dumps(payload), headers=header)  
   authresult=response.status_code
   token=response.json()
@@ -76,7 +77,8 @@ def applyPolicyGroup():
     cwpassets.append(str(asset['instance_id']))
   print("Policy Group ["+policyGroupName+"] has ["+str(len(cwpassets))+"] instances associated.")
   if forceApply.lower() != 'yes':
-    choice = raw_input("Do you want to continue? (Y/N):")
+    #choice = raw_input("Do you want to continue? (Y/N):") #raw_input is deprecated in newer python version
+    choice = input("Do you want to continue? (Y/N):")
   else:
     choice = 'y'
   if choice.lower() == 'y' or choice.lower()=='yes':
