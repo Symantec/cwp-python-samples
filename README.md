@@ -2,7 +2,7 @@
 
 [![Symantec](https://img.shields.io/badge/tag-symantec-yellow.svg)](https://www.symantec.com/)
 [![CWP](https://img.shields.io/badge/tag-cwp-yellow.svg)](https://www.symantec.com/products/cloud-workload-protection)
-[![Python](https://img.shields.io/badge/language-sql-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/language-python-blue.svg)](https://www.python.org/)
 
 Python code samples for demostrating usage of [Symantec Cloud Workload Protection](https://www.symantec.com/products/cloud-workload-protection) RESTful API functions
 
