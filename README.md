@@ -237,5 +237,23 @@ E.g.
 > `python cwpasset_agent_status.py SE*****Ag Dq******w O2ID.SE*******vmuo qa*******d8 i-06***********9e`
 
 --------------------------------------------------------------------------------------------------------------------
+[cwpasset_agent_status.py](tagginginstances.py)
+Script to add/delete tags to CWP assets (instances). These tags are added under 'Symantec Tags' in the Instance Detail page of the UI. These tags can also be used to automate Polilcy Group enforcement. This tag API feature is handy for tagging on premise private cloud or physical instances managed through CWP Cloud Console thus eliminating need to manaully add tags to such instances in the CWP UI.
+Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
+
+Usage:
+> `python tagginginstances.py -customerId=<Customer ID> -domainId=<Domain ID> -clientId=<Client ID> -clientSecret=<Client Secret Key> -instanceIds=<Comma separated Instance Ids without spaces in between> -tags=<Comma Separated Tags without spaces in between> -operation=<add or delete>`
+
+E.g. Usage: Sample Usage to add a Tag to single Instance
+> `python tagginginstances.py -customerId=iCUdmHxxxxxBaXGQ -domainId=dAxu0xxxxxoFXBboIg -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxwvq1dpkl4 -clientSecret=1umcsxxxxxxxxxxxxxxxxxxxxxw86kdr59r6ps -instanceIds=i-02cxxxxxxr7 -tags=sampleTag1 -operation=add`
+
+E.g. Sample Usage to delete Tag of single Instance
+> `python tagginginstances.py -customerId=iCUdmHxxxxxBaXGQ -domainId=dAxu0xxxxxoFXBboIg -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxwvq1dpkl4 -clientSecret=1umcsxxxxxxxxxxxxxxxxxxxxxw86kdr59r6ps -instanceIds=i-02cxxxxxxr7 -tags=sampleTag1 -operation=add`
+
+E.g. Sample Usage to add multiple Tags to Multiple Instances
+> `python tagginginstances.py -customerId=iCUdmHxxxxxBaXGQ -domainId=dAxu0xxxxxoFXBboIg -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxwvq1dpkl4 -clientSecret=1umcsxxxxxxxxxxxxxxxxxxxxxw86kdr59r6ps -instanceIds=i-02cxxxxxxr7,i-0e6xxxxxxce,i-0daxxxxxx5b -tags=sampleTag1,sampleTag2,sampleTag3 -operation=add`
+
+E.g. Sample Usage to delete multiple Tags of Multiple Instances
+> `python tagginginstances.py -customerId=iCUdmHxxxxxBaXGQ -domainId=dAxu0xxxxxoFXBboIg -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxwvq1dpkl4 -clientSecret=1umcsxxxxxxxxxxxxxxxxxxxxxw86kdr59r6ps -instanceIds=i-02cxxxxxxr7,i-0e6xxxxxxce,i-0daxxxxxx5b -tags=sampleTag1,sampleTag2,sampleTag3 -operation=delete`
 
 --------------------------------------------------------------------------------------------------------------------
