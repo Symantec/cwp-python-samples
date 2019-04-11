@@ -171,7 +171,7 @@ try:
 			print('\n')
 			sys.stdout.flush()
 			eventDatetime = scwpEvent['time']
-	
+		updateStatusIniFile()
 		pageNumber += 1
 except:
 	raise
