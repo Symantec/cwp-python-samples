@@ -3,7 +3,7 @@
 # Copyright 2019 Symantec Corporation. All rights reserved.
 #
 # Script to parse the extracted policy settings from JSON file into a more readable CSV format.
-# Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
+# The output will be saved in a file named 'setttings.csv' at the same location as that of the input settings JSON file.
 # Usage: python ParsePolicySettings.py -settingsFileName='<Settings file name>'
 
 # Sample Usage to parse policy settings from JSON file: python ParsePolicySettings.py -settingsFileName='all_policies_setttings.json'
@@ -22,7 +22,7 @@ class Entry:
 		self.value = value
 
 def save_csv():
-	with open("all_policies_setttings.csv", 'w') as f:
+	with open("setttings.csv", 'w') as f:
 		f.write( global_csv )
 	print ( "File saved !!" )
 	return
