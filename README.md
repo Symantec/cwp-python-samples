@@ -257,3 +257,27 @@ E.g. Sample Usage to delete multiple Tags of Multiple Instances
 > `python tagginginstances.py -customerId=iCUdmHxxxxxBaXGQ -domainId=dAxu0xxxxxoFXBboIg -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxw.xxxxxxxxxxxxxxxxxxxxxwvq1dpkl4 -clientSecret=1umcsxxxxxxxxxxxxxxxxxxxxxw86kdr59r6ps -instanceIds=i-02cxxxxxxr7,i-0e6xxxxxxce,i-0daxxxxxx5b -tags=sampleTag1,sampleTag2,sampleTag3 -operation=delete`
 
 --------------------------------------------------------------------------------------------------------------------
+[ExtractPolicySettings.py](ExtractPolicySettings.py)
+
+Sample script to return settings of policies present in a policy-group
+
+Refer to CWP REST API at:
+https://apidocs.symantec.com/home/scwp#_export_policy_settings_of_a_policy_group
+
+Usage:
+> `python ExtractPolicySettings.py -customerId=<Customer ID> -domainId=<Domain ID> -clientId=<Client ID> -clientSecret=<Client Secret Key> -policyGroupName='<Policy group name>' -policyName='<Provide Name of Policy in policy group or type 'split' for the policies in separate files or type 'all-policies' in case of all policies in one file>'`
+
+Sample Usage to get policy settings for all policies in policy group in single JSON file:
+> `python ExtractPolicySettings.py -customerId=iCUdmHxxxxx -domainId=dAxu0xxxx -clientId=O2IDxxxxxxxxxxxxxxxxxxxx -clientSecret=1umcsxxxxxxxxxxx -policyGroupName='Symantec Default Policy Group : UNIX' -policyName="all-policies"`
+
+--------------------------------------------------------------------------------------------------------------------
+[ParsePolicySettings.py](ParsePolicySettings.py)	
+
+Sample script to parse the settings JSON into a more readable CSV format.
+The output will be saved in a file named 'setttings.csv' at the same location as that of the input settings JSON file.
+
+Usage:
+> `python ParsePolicySettings.py -settingsFileName='<Settings file name>'`
+
+Sample Usage to parse policy settings from JSON file: 
+> `python ParsePolicySettings.py -settingsFileName='all_policies_setttings.json'`
