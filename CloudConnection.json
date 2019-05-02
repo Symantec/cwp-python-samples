@@ -1,0 +1,10 @@
+{
+  "cloud_platform": "GCP",
+  "name": "SymcXXXXXXX",
+  "description": "XXXXXXXXXX",
+  "gcpProperties": {
+    "serviceAccountJson": "{}"
+  },
+  "pollingIntervalHours": 6,
+  "pollingIntervalMinutes": 15
+}
