@@ -49,7 +49,7 @@ authHeaders = {'Content-type':'application/json'}
 authRequest = {}
 alertDatetime = ''
 
-getScwpAlertsRequest = {'eventTypeToQuery':16,'pageSize':PAGE_SIZE, 'searchFilter':{}}
+getScwpAlertsRequest = {'eventTypeToQuery':16,'pageSize':PAGE_SIZE,'order':'ASCENDING','searchFilter':{}}
 
 def updateStatusIniFile():
 	config = ConfigParser.RawConfigParser()
