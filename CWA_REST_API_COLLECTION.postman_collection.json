@@ -1,0 +1,879 @@
+{
+	"info": {
+		"_postman_id": "c81d915c-9e98-4321-a1a3-62dda8fe9ca3",
+		"name": "CWA_REST_API_COLLECTION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate AuthenticationToken",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"client_id\":\"{{client_id}}\",\n\t\"client_secret\": \"{{client_secret}}\"\n}"
+				},
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/oauth/tokens",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"dcscloud",
+						"v1",
+						"oauth",
+						"tokens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Accounts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/accounts",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Azure Accounts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/accounts?cloud_provider=Azure",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "cloud_provider",
+							"value": "Azure"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Services",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/services",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Azure Services",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/services?cloud_provider=Azure",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"services"
+					],
+					"query": [
+						{
+							"key": "cloud_provider",
+							"value": "Azure"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Policies",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/policies",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"policies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Azure Policies",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/policies?cloud_provider=Azure",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"policies"
+					],
+					"query": [
+						{
+							"key": "cloud_provider",
+							"value": "Azure"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Resources of a Specific Service",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/services/39/resources?limit=50",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"services",
+						"39",
+						"resources"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Checks For a Resource",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/resources/{{RESOURCE_ID}}/checks",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"resources",
+						"{{RESOURCE_ID}}",
+						"checks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Scan Profiles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/scan_profiles",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"scan_profiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start Scan Using Account and Policy ids",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"account_ids\":[\"CLOUD_ACCOUNT_IDs\"],\n\"policy_ids\":[\"POLICY_IDs\"],\n\"scan_name\":\"NAME YOUR SCAN\",\n\"cloudprovider\":\"CLOUDPROVIDER\"\n\n}"
+				},
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/startscan",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"startscan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Scan Status By Scan Profile Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/jobs/{{SCANPROFILEID}}/jobstatus",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"jobs",
+						"{{SCANPROFILEID}}",
+						"jobstatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Account in a Scan Profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"accountIds\": [\"ACCOUNT_ID\"]\n}"
+				},
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/scan_profiles/{{SCAN_PROFILE_NAME}}/accounts",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"scan_profiles",
+						"{{SCAN_PROFILE_NAME}}",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Org Unit Hierarchy",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}",
+						"type": "text"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/org_units",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"org_units"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Child Org Unit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					},
+					{
+						"key": "authorization",
+						"value": " {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"NAME OF ORG UNIT\",\r\n    \"desc\": \"DESCRIPTION OF ORG UNUT\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/org_units/{{PARENT_ORG_UNIT_NAME}}/org_unit",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"org_units",
+						"{{PARENT_ORG_UNIT_NAME}}",
+						"org_unit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Associate Accounts to an Org Unit",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " [\r\n\"ACCOUNT_ID1\",\r\n\"ACCOUNT_ID2\"\r\n] "
+				},
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/org_units/{{ORG_UNIT_ID}}/accounts",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"org_units",
+						"{{ORG_UNIT_ID}}",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete An Org Unit",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					},
+					{
+						"key": "authorization",
+						"value": " {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/scwa/v1/apis/org_units/{{ORG_UNIT_ID}}",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"scwa",
+						"v1",
+						"apis",
+						"org_units",
+						"{{ORG_UNIT_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Events",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "authorization",
+						"value": "{{access_token}}"
+					},
+					{
+						"key": "x-epmp-customer-id",
+						"value": "{{x-epmp-customer-id}}"
+					},
+					{
+						"key": "x-epmp-domain-id",
+						"value": "{{x-epmp-domain-id}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"startDate\": \"2019-03-12T13:57:26.713000\", \n\"endDate\": \"2019-06-11T08:42:05.144000\", \n\"pageSize\": 100, \n\"searchFilter\": {}, \n\"additionalFilters\": \"type_class IN [\\\"Compliance\\\"]\", \n\"pageNumber\": 0, \n\"displayLabels\": \"false\", \n\"order\": \"ASCENDING\"\n}"
+				},
+				"url": {
+					"raw": "https://scwp.securitycloud.symantec.com/dcs-service/dcscloud/v1/event/query",
+					"protocol": "https",
+					"host": [
+						"scwp",
+						"securitycloud",
+						"symantec",
+						"com"
+					],
+					"path": [
+						"dcs-service",
+						"dcscloud",
+						"v1",
+						"event",
+						"query"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "185bce7b-cdd5-403d-bb75-b266dc5836b7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a270084f-b481-4321-a346-5d8b8f4b6d16",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
