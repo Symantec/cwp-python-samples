@@ -290,7 +290,7 @@ https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 Sample script to Create and Update Cloud Connection(Azure).
 
 Usage:
-> `python create_Azure_Connection.py -customerId=<Customer Id>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret>  -platform=Azure -connectionName=<Connection Name> -applicationId=<Application Id> -tenantId=<Tenant Id> -secret=<Application Secret> -syncIntervalHours=0 -syncIntervalMinutes=15 -operation=<create|update> -id=<connection Id>'`
+> `azureConnectionConfig.py -customerId=<Customer Id>  -domainId=<Domain Id> -clientId=<Client Id> -clientSecret=<Client Secret>  -platform=Azure -connectionName=<Connection Name> -applicationId=<Application Id> -tenantId=<Tenant Id> -secret=<Application Secret> -syncIntervalHours=0 -syncIntervalMinutes=15 -operation=<create|update> -id=<connection Id>'`
 
 Sample Usage to configure Azure connection: 
 > `python azureConnectionConfig.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p  -platform=Azure -connectionName=AzureCxxxxxxxxxxx -applicationId=nmxxxxxxx9G -tenantId=xxxxxxxx -secret=shdchhvasxjgacxxxx -syncIntervalHours=0 -syncIntervalMinutes=15 -operation=update -id=Swsdvjsdcbjxxxx`
