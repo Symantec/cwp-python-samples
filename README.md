@@ -304,7 +304,7 @@ https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 Script to fetch and save subscription usage. Saves the file in current working directory.
 
 Usage:
-> `apython GetSubscriptionUsage.py -customerId=<customer Id> -domainId=<Domain id> -clientId=<Client Id> -clientSecret=<Client Secret> -usageType=<all || hourly || instanc> -usageDomain=<DomainName>`
+> `python GetSubscriptionUsage.py -customerId=<customer Id> -domainId=<Domain id> -clientId=<Client Id> -clientSecret=<Client Secret> -usageType=<all || hourly || instanc> -usageDomain=<DomainName>`
 
 Sample Usage to get subscription usage for given domain for month-to-date: 
  `python GetSubscriptionUsage.py -customerId=iCUdmHxxxxx -domainId=dAxu0xxxx -clientId=O2IDxxxxxxxxxxxxxxxxxxxx -clientSecret=1umcsxxxxxxxxxxx -usageType=all -usageDomain=dAxu0xxxx`
