@@ -294,3 +294,19 @@ Usage:
 
 Sample Usage to configure Azure connection: 
 > `python azureConnectionConfig.py -customerId=xxxxxxxxxxxx-iY2nw  -domainId=DxxxxxxxxxxxxJNZxx -clientId=O2ID.xxxxxxxxxxxxxxxxxxxxxw.DxxxxxxxxxxxxJNZxx.nxxxxxxxxxxxxxxxxxx -clientSecret=1lxxxxxxxxxxxxxxxxxxx1p  -platform=Azure -connectionName=AzureCxxxxxxxxxxx -applicationId=nmxxxxxxx9G -tenantId=xxxxxxxx -secret=shdchhvasxjgacxxxx -syncIntervalHours=0 -syncIntervalMinutes=15 -operation=update -id=Swsdvjsdcbjxxxx`
+
+
+--------------------------------------------------------------------------------------------------------------------
+[GetSubscriptionUsage.py](GetSubscriptionUsage.py)	
+Refer to CWP REST API at: 
+https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
+
+Script to fetch and save subscription usage. Saves the file in current working directory.
+
+Usage:
+> `apython GetSubscriptionUsage.py -customerId=<customer Id> -domainId=<Domain id> -clientId=<Client Id> -clientSecret=<Client Secret> -usageType=<all || hourly || instanc> -usageDomain=<DomainName>`
+
+Sample Usage to get subscription usage for given domain for month-to-date: 
+ `python GetSubscriptionUsage.py -customerId=iCUdmHxxxxx -domainId=dAxu0xxxx -clientId=O2IDxxxxxxxxxxxxxxxxxxxx -clientSecret=1umcsxxxxxxxxxxx -usageType=all -usageDomain=dAxu0xxxx`
+Sample Usage to get hourly subscription usage for given domain for last-to-last month: 
+`python GetSubscriptionUsage.py -customerId=iCUdmHxxxxx -domainId=dAxu0xxxx -clientId=O2IDxxxxxxxxxxxxxxxxxxxx -clientSecret=1umcsxxxxxxxxxxx -usageType=hourly -usageDomain=dAxu0xxxx -usageMonthType=m-2`
