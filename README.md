@@ -283,7 +283,7 @@ Sample Usage to parse policy settings from JSON file:
 > `python ParsePolicySettings.py -settingsFileName='all_policies_setttings.json'`
 
 --------------------------------------------------------------------------------------------------------------------
-[create_Azure_Connection.py](create_Azure_Connection.py)	
+[azureConnectionConfig.py](azureConnectionConfig.py)	
 Refer to CWP REST API at: 
 https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 
