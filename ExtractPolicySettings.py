@@ -2,7 +2,7 @@
 #
 # Copyright 2019 Symantec Corporation. All rights reserved.
 #
-# Script to extract policy settings and save in JSON file for specific policy or all policies in policy group.
+# Script to extract policy settings and save in JSON file for specific policy or all policies in policy group
 # Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 # Usage: python ExtractPolicySettings.py -customerId=<Customer ID> -domainId=<Domain ID> -clientId=<Client ID> -clientSecret=<Client Secret Key> -policyGroupName='<Policy group name>' -policyName='<Provide Name of Policy in policy group or type 'split' for the policies in separate files or type 'all-policies' in case of all policies in one file>'
 
