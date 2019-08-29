@@ -2,7 +2,7 @@
 #
 # Copyright 2019 Symantec Corporation. All rights reserved.
 #
-# Script to fetch and save subscription usage. Saves the file in current location
+# Script to fetch and save subscription usage.Saves the file in current location
 # Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 # Usage: python GetSubscriptionUsage.py -customerId=<Customer ID> -domainId=<Domain ID> -clientId=<Client ID> -clientSecret=<Client Secret Key>
 
