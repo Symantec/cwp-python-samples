@@ -312,8 +312,6 @@ Sample Usage to get hourly subscription usage for given domain for last-to-last 
 > `python GetSubscriptionUsage.py -customerId=iCUdmHxxxxx -domainId=dAxu0xxxx -clientId=O2IDxxxxxxxxxxxxxxxxxxxx -clientSecret=1umcsxxxxxxxxxxx -usageType=hourly -usageDomain=dAxu0xxxx -usageMonthType=m-2`
 --------------------------------------------------------------------------------------------------------------------
 [SplunkIntegrationFiles.zip](SplunkIntegrationFiles.zip)	
-Refer to CWP REST API at: 
-https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 
 Scripts to import the events and alerts from Cloud Workload Protection to Splunk
 
