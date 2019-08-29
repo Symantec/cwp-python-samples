@@ -2,7 +2,7 @@
 #
 # Copyright 2019 Symantec Corporation. All rights reserved.
 #
-# Script to Create and Update Cloud Connection(GCP or OCI)
+# Script to Create and Update Cloud Connection(GCP or OCI).
 # Refer to CWP REST API at: https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 # Usage: python CloudConnection.py -customerId=<Customer ID> -domainId=<Domain ID> -clientId=<Client ID> -clientSecret=<Client Secret Key> -operation=<create or update>
 # Note : API input paylod should be in CloudConnection.json file and keep this file at same loation where this python script is available.
