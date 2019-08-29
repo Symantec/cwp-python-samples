@@ -2,7 +2,7 @@
 #
 # Copyright 2019 Symantec Corporation. All rights reserved.
 #
-# Script to parse the extracted policy settings from JSON file into a more readable CSV format.
+# Script to parse the extracted policy settings from JSON file into a more readable CSV format
 # The output will be saved in a file named 'setttings.csv' at the same location as that of the input settings JSON file.
 # Usage: python ParsePolicySettings.py -settingsFileName='<Settings file name>'
 
