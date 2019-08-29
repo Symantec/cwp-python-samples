@@ -317,6 +317,6 @@ https://apidocs.symantec.com/home/scwp#_symantec_cloud_workload_protection
 
 Scripts to import the events and alerts from Cloud Workload Protection to Splunk
 
-For detailed steps for usage, refer to CWP online help at 
-https://help.symantec.com/cs/SCWP/SCWP/v124149702_v111037498/Importing-Cloud-Workload-Protection-events-and-alerts-into-Splunk?locale=EN_US&set=CWP_COMPUTE
+For detailed steps for usage, refer to CWP online help at: https://help.symantec.com/cs/SCWP/SCWP/v124149702_v111037498/Importing-Cloud-Workload-Protection-events-and-alerts-into-Splunk?locale=EN_US&set=CWP_COMPUTE
+
 --------------------------------------------------------------------------------------------------------------------
